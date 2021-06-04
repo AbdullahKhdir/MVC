@@ -1,0 +1,11 @@
+{
+    "name": "user/mvc-composer",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}
