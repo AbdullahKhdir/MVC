@@ -5,12 +5,13 @@ require_once __DIR__."/../Core/Request.php";
 use app\core\Application;
 use app\Core\Controller;
 use app\core\Request;
+    //-----------------------------------------------
 
-class SiteController extends Controller
-{
+class SiteController extends Controller{
 
     public function __construct(){}
-    public function handlePostedData(Request $request = null){
+
+    public function handleHomePostedData(Request $request = null){
         $params = [
             "name" => "User"
         ];
@@ -19,9 +20,11 @@ class SiteController extends Controller
         }
         return $this->render("home", $params);
     }
+
     public function handleHome(){
         return $this->render("home");
     }
+
     public function contact(){
         return $this->render("contact");
     }

@@ -11,10 +11,9 @@ class Register
 
     public function __construct(){}
 
-
     public function signUp()
         {
-            $dbConn = singleTon::getInstance();
+            /*$dbConn = singleTon::getInstance();
 
             if (isset($_POST["register"])) {
                 if ($_POST["register"] === "Register") {
@@ -78,7 +77,7 @@ class Register
 
 
                 }
-            }
+            }*/
         }
 
 }

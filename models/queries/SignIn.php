@@ -8,7 +8,7 @@ class SignIn{
 
     public function signIn(){
 
-        if (isset($_POST["inputEmail"]) || isset($_POST["inputPswd"])) {
+       /* if (isset($_POST["inputEmail"]) || isset($_POST["inputPswd"])) {
             if (isset($_POST["SignIn"])) {
                 if ($_POST["SignIn"] == "Login") {
 
@@ -64,6 +64,6 @@ class SignIn{
                 }
             }
         }
-
+        */
     }
 }
