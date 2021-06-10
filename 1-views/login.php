@@ -16,11 +16,14 @@
                    class="form-control"
                    id="exampleFormControlInput1"
                    placeholder="Password"
-                   name="password">    </div>
+                   name="password">
+        </div>
         <button class="btn btn-outline-primary"
                 type="submit"
                 name="SignIn"
-                style="margin-bottom: 20px">Login</button>
+                style="margin-bottom: 20px">
+            Login
+        </button>
     </div>
 </form>
 

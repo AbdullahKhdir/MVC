@@ -1,4 +1,4 @@
-        <h3 style="text-align: center">Welcome <?php echo $name ?> </h3>
+        <br><h3 style="text-align: center">Welcome <?php if (!empty($name)){echo $name;}elseif (isset($_GET["userName"])){echo $_GET["userName"]; }; ?> </h3>
         <div>
             <?php
             echo "<br>";

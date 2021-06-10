@@ -13,22 +13,29 @@ class Field{
         $this->attribute = $attribute;
     }
 
+
     public function __toString(): string{
         return sprintf('<div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">%s</label>
-                                <input type="text"
-                                       class="form-control"
+                                <input type="%s"
+                                       class="form-control %s"
                                        id="exampleFormControlInput1"
+                                       placeholder="%s"
                                        name="%s"
-                                       value="%s"%s>
+                                       value="%s">
                                 <div class="invalid-feedback">
                                     %s
                                 </div>
                                 </div>',
+                               strtoupper($this->attribute),
+                                 str_starts_with($this->attribute, "password") ? "password" : "text" ,
+                                 $this->model->hasError($this->attribute) ? "is-invalid" : ($_POST[$this->attribute] == null ? "" : "is-valid"),
+                                 $this->attribute === "firstName" ? "Max" : ($this->attribute === "lastName" ? "Mustermann" : ($this->attribute === "userName" ? "@User123": ($this->attribute === "email" ? "email123@email.com" : ($this->attribute === "password" ? "min 6 digits pswd" : ($this->attribute === "passwordConfirm" ? "reenter your pswd" : ""))))),
                                  $this->attribute,
-                                         $this->attribute,
-                                         $this->model->{$this->attribute},
-                                         $this->model->hasError($this->attribute) ? " is-invalid" : "",
-                                         $this->model->getFirstError($this->attribute)); //lbl, name, value, in-valid.
-     }
+                                 $_POST["$this->attribute"],
+                                 $this->model->getFirstError($this->attribute)); //lbl, name, value, in-valid.
+            }
+
 }
+
+

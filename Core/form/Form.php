@@ -1,14 +1,16 @@
 <?php
 namespace app\Core\form;
 
+use app\core\Application;
+use app\Core\Controller;
 use app\models\RegisterModel;
 
 class Form{
 
     public function __construct(){}
 
-    public static function begin($action, $method){
-        echo sprintf("<form action='%s' method='%s'>", $action, $method);
+    public static function begin($action, $method, $submit){
+        echo sprintf("<form action='%s' method='%s' onsubmit='%s'>", $action, $method, $submit);
         return new Form();
     }
 
@@ -21,4 +23,8 @@ class Form{
         return new Field($model, $attribute);
     }
 
+    public static function btn(){
+        return "<button class='btn btn-outline-primary' type='submit' name='register' style='margin-bottom: 20px'> Register </button>";
+
+    }
 }

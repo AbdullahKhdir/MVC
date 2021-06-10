@@ -1,13 +1,26 @@
 <?php
-require_once __DIR__ ."/../vendor/autoload.php";
-require_once __DIR__."/../Core/Request.php";
 use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\Core\application;
 use app\core\Request;
 use app\Core\Response;
 
-$app = new \app\Core\Application(dirname(__DIR__));
+require_once __DIR__ ."/../vendor/autoload.php";
+require_once __DIR__."/../Core/Request.php";
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+
+$config = [
+    "DB" => [
+        "dsn" => $_ENV['DB_DSN'],
+        "user" => $_ENV['DB_USER'],
+        "password" => $_ENV['DB_PASSWORD'],
+    ],
+];
+
+$app = new \app\Core\Application(dirname(__DIR__), $config);
+
+    $app->router->get("/home", "home");
 
     $app->router->get("/", function(){
         return (new SiteController())->handleHome();

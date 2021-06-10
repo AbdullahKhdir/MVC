@@ -32,7 +32,9 @@ class Request{
                 $body[$param] = filter_input(INPUT_POST, $param,FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             }
         }
+        //echo "<pre>";
         //var_dump($_POST);
+        //echo "<pre>";
         return $body;
     }
 
