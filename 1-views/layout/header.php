@@ -37,10 +37,11 @@ ob_start();
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <a style="margin: 1%;" class="btn btn-primary" href="/login">Login</a>
-                        <a style="margin: 1%;" class="btn btn-primary" href="/reg">Register</a>
+                        <?php isset($_SESSION["userName"]) ? print "" : print '<a style="margin: 1%;" class="btn btn-primary" href="/login"> Login </a>' ?>
+                        <a style="margin: 1%;" class="btn btn-primary" href="<?php isset($_SESSION["userName"]) ? print "/logout" : print "/reg" ?>"> <?php isset($_SESSION["userName"]) ? print "Logout" : print "Register" ?></a>
                     </div>
                 </div>
             </div>
         </nav>
-    
+
+    <?php //<a style="margin: 1%;" class="btn btn-primary" href="/login"> Login </a> ?>

@@ -68,5 +68,18 @@ $app = new \app\Core\Application(dirname(__DIR__), $config);
 
     //-----------------------------------------------
 
+    $app->router->get("/logout", function (){
+        unset($_SESSION["userName"]);
+        header("Location: /home?logout=success");
+        exit();
+    });
 
-    $app->run();
+    //-----------------------------------------------
+
+    $app->router->get("/articles", function (){
+       return (new \app\controllers\Articles())->renderArticles();
+    });
+
+    //-----------------------------------------------
+
+$app->run();

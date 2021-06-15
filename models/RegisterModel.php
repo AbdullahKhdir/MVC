@@ -126,9 +126,9 @@ class RegisterModel extends Model {
         return [
             "firstName" => [self::RULE_REQUIRED],
             "lastName" => [self::RULE_REQUIRED],
-            "userName" => [self::RULE_REQUIRED, self::RULE_VALID], //char[0] must be @
-            "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
-            "password" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 8], [self::RULE_MAX, "max" => 15]],
+            "userName" => [self::RULE_REQUIRED, self::RULE_VALID, self::RULE_USERNAME_EXISTS], //char[0] must be @
+            "email" => [self::RULE_REQUIRED, self::RULE_EMAIL, self::RULE_EMAIL_EXISTS, self::RULE_EMAIL_DOES_NOT_EXIST],
+            "password" => [self::RULE_REQUIRED, [self::RULE_MIN, "min" => 8], [self::RULE_MAX, "max" => 15], self::RULE_PASSWORD_DOES_NOT_MATCH],
             "passwordConfirm" => [self::RULE_REQUIRED, self::RULE_MATCH],
         ];
     }

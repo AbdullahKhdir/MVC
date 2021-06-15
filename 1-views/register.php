@@ -8,11 +8,11 @@
             isset($_POST["password"]) &&
             isset($_POST["passwordConfirm"])) {
             if ((new \app\models\RegisterModel())->getError() === false) {
-                header("location: /home?userName=".$_POST["userName"]);
+                $_SESSION["userName"] = $_POST["userName"];
+                header("location: /home?register=success");
                 exit();
             }
         }
-
     }
 ?>
 
@@ -41,7 +41,7 @@
     }
 </script>
 
-<div class="container-sm">
+  <div class="container-sm">
     <?php \app\Core\form\Form::begin("" , "POST", onsubmit()); ?>
     <?php echo \app\Core\form\Form::field((new \app\models\RegisterModel()), "firstName") ?>
     <?php echo \app\Core\form\Form::field((new \app\models\RegisterModel()), "lastName") ?>
@@ -52,7 +52,7 @@
     <?php //<button onclick='onclickeJS()' class='btn btn-outline-primary' type='submit' name='register' style='margin-bottom: 20px'> Register </button>?>
     <?php echo \app\core\form\Form::btn()?>
     <?php \app\Core\form\Form::end(); ?>
-</div>
+  </div>
 
 <?php //<button class="btn btn-outline-primary" type="submit" name="register" style="margin-bottom: 20px"> Register </button> ?>
 
@@ -201,7 +201,7 @@
 ?>
 
 <?php
-    /*
+/*
      <div class="container-sm">
     <form onchange="notify()" class="needs-validation" action="" method="post" novalidate>
         <div class="mb-3 col">
@@ -303,6 +303,4 @@
 </div>
 
     */
-    ?>
-
-
+?>

@@ -21,3 +21,4 @@ $config = [
 $app = new \app\Core\Application(__DIR__, $config);
 
 \app\Core\Database::applyMigrations();
+

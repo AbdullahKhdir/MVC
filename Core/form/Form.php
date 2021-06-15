@@ -18,13 +18,18 @@ class Form{
         echo "</form>";
     }
 
-    public static function field(RegisterModel $model, string $attribute): Field
-    {
+    public static function field(RegisterModel $model, string $attribute): Field{
         return new Field($model, $attribute);
     }
 
     public static function btn(){
-        return "<button class='btn btn-outline-primary' type='submit' name='register' style='margin-bottom: 20px'> Register </button>";
 
+        if(!isset($_SESSION["userName"])){
+            if ($_SERVER["PATH_INFO"] === "/login"){
+                return '<button class="btn btn-outline-primary" type="submit" name="SignIn" style="margin-bottom: 20px"> Login </button> ';
+            }elseif($_SERVER["PATH_INFO"] === "/reg"){
+                return "<button class='btn btn-outline-primary' type='submit' name='register' style='margin-bottom: 20px'> Register </button>";
+            }
+        }
     }
 }
