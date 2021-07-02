@@ -4,8 +4,12 @@ require_once __DIR__."/../Core/Router.php";
 require_once __DIR__."/../Core/Response.php";
 require_once __DIR__."/../Core/Request.php";
 require_once __DIR__."/../Core/Database.php";
+require_once __DIR__ ."/../vendor/autoload.php";
 
 use app\core\Router;
+use Dotenv\Dotenv;
+
+
 class Application{
     public static $ROOT_DIR;
     public namespace\Router $router;
@@ -13,6 +17,7 @@ class Application{
     public namespace\Request $request;
     public static namespace\Application $app;
     public $db;
+
 
     public function __construct($rootPath, $config){
         Application::$ROOT_DIR = $rootPath;

@@ -52,7 +52,7 @@ class AuthController extends Controller{
                             return $this->render("login", ["regModel" => $regModel]);
                         }
                     }else{
-                        Model::$error["email"][] = Model::RULE_EMAIL_DOES_NOT_EXIST;
+                        Model::$error["email"][] = "Please insert a valid email!";
                         return $this->render("login", ["regModel" => $regModel]);
                     }
                 }else{
@@ -68,7 +68,6 @@ class AuthController extends Controller{
     public function handleRegister(\app\core\Request $req){
 
         $regModel = new RegisterModel();
-
         if ($req){
             $body = $req->getBody();
             $regModel->loadData($req->getBody()); //write the posted data to the RegisterModel

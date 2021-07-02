@@ -15,9 +15,9 @@ class SiteController extends Controller{
         $params = [
             "name" => "User"
         ];
-        if ($request){
+        /*if ($request){
             $body = $request->getBody();
-        }
+        }*/
         return $this->render("home", $params);
     }
 

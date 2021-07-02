@@ -21,34 +21,25 @@ $config = [
 $app = new \app\Core\Application(dirname(__DIR__), $config);
 
     $app->router->get("/home", "home");
-
     $app->router->get("/", function(){
         return (new SiteController())->handleHome();
     });
     $app->router->post("/", function(Request $req){
         return (new SiteController())->handleHomePostedData($req);
     });
-
     //-----------------------------------------------
-
     $app->router->get("/users", function(){
         echo "Users Route";
     });
-
     //-----------------------------------------------
-
     $app->router->get("/about", function(){
         echo "About Route";
     });
-
     //-----------------------------------------------
-
     $app->router->get("/contact", function(){
        return (new SiteController())->contact();
     });
-
     //-----------------------------------------------
-
     $app->router->get("/login", function(){
          return (new AuthController())->renderLogin();
     });
@@ -56,30 +47,32 @@ $app = new \app\Core\Application(dirname(__DIR__), $config);
     $app->router->post("/login", function(Request $req){
         return (new AuthController())->handleLogin($req);
     });
-
     //-----------------------------------------------
-
     $app->router->get("/reg", function(Request $req){
         return (new AuthController())->renderRegister();
     });
     $app->router->post("/reg", function(Request $req){
         return (new AuthController())->handleRegister($req);
     });
-
     //-----------------------------------------------
-
     $app->router->get("/logout", function (){
         unset($_SESSION["userName"]);
+        unset($_SESSION["protectedRoutes"]);
+        unset($_SESSION["loggedInEmail"]);
         header("Location: /home?logout=success");
         exit();
     });
-
     //-----------------------------------------------
-
     $app->router->get("/articles", function (){
        return (new \app\controllers\Articles())->renderArticles();
     });
-
     //-----------------------------------------------
-
-$app->run();
+    $app->router->get("/profile",  function(){
+        return (new \app\controllers\profile())->renderProfile();
+    });
+    //-----------------------------------------------
+    $app->router->post("/profile",  function(Request $req){
+        return (new \app\controllers\profile())->handleChangePData($req);
+    });
+    //-----------------------------------------------
+    $app->run();

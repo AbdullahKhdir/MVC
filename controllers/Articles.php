@@ -6,7 +6,10 @@ namespace app\controllers;
 
 use app\core\Application;
 use app\Core\Controller;
+use app\Core\Database;
 use app\core\Request;
+use Dotenv\Dotenv;
+use PDO;
 
 class Articles extends Controller {
 
@@ -14,11 +17,14 @@ class Articles extends Controller {
 
     public function renderArticles(){
         if (isset($_SESSION["protectedRoutes"])){
-            if ($_SESSION["protectedRoutes"] === "abdullah.khdir@telekom.de"){
-                $this->render("articles");
-            }else{
-                echo "<p style='text-align: center'>Not Found!</p>";
+            $authUsers = (new AuthorizedUsers())->getAuthUsers();
+
+            foreach ($authUsers as $user => $item){
+                if (in_array($_SESSION["protectedRoutes"], $item)){
+                    $this->render("articles");
+                }
             }
+
         }else{
             echo "<p style='text-align: center'>Not Found!</p>";
         }

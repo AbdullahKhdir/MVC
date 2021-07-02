@@ -1,6 +1,8 @@
 <?php
 namespace app\models\queries;
+use app\Core\Database;
 use app\models\singleTon;
+use PDO;
 
 class SignIn{
 
@@ -65,5 +67,22 @@ class SignIn{
             }
         }
         */
+    }
+
+    public function fetchAccountInfos($userName = null, $email = null){
+        if ($email){
+            $stmt = Database::$dbConn->prepare("select firstname, lastname, email, username from users where email='$email'");
+        }else if($userName){
+            $stmt = Database::$dbConn->prepare("select firstname, lastname, email, username from users where userName='@$userName'");
+        }else{
+            $stmt = Database::$dbConn->prepare("select firstname, lastname, email, username from users where email='$email' and userName='@$userName'");
+        }
+        $stmt->execute();
+        /*if(!$stmt->fetchAll(PDO::FETCH_ASSOC)){
+            $stmt = Database::$dbConn->prepare("");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }*/
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

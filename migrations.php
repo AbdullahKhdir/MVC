@@ -21,4 +21,4 @@ $config = [
 $app = new \app\Core\Application(__DIR__, $config);
 
 \app\Core\Database::applyMigrations();
-
+//var_dump(\app\Core\Database::getAuthUsers());

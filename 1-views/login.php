@@ -4,6 +4,7 @@ function onsubmit (){
         isset($_POST["password"])) {
         if ((new \app\models\RegisterModel())->getError() === false) {
             $_SESSION["protectedRoutes"] = $_POST["email"];
+            $_SESSION["loggedInEmail"] = $_POST["email"];
             header("location: /home?signin=success");
             exit();
         }
@@ -41,7 +42,7 @@ function onsubmit (){
     <?php echo \app\Core\form\Form::field((new \app\models\RegisterModel()), "email") ?>
     <?php echo \app\Core\form\Form::field((new \app\models\RegisterModel()), "password") ?>
     <?php echo \app\core\form\Form::btn()?>
-    <?php \app\Core\form\Form::end(); ?>
+    <?php \app\Core\form\Form::end();?>
 </div>
 
 <?php //<button class="btn btn-outline-primary" type="submit" name="register" style="margin-bottom: 20px"> Register </button> ?>

@@ -1,6 +1,8 @@
 <?php
 
 namespace app\Core;
+use app\controllers\AuthorizedUsers;
+use JetBrains\PhpStorm\Pure;
 use PDO;
 
 class Database{
@@ -83,5 +85,4 @@ class Database{
     public static function log($msg){
         echo "[". date('Y-m-d H:i:s') ."] - ".$msg.PHP_EOL;
     }
-
 }

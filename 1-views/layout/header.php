@@ -1,4 +1,7 @@
 <?php
+
+use app\controllers\AuthorizedUsers;
+
 ob_start();
 @session_start();
 ?>
@@ -10,11 +13,16 @@ ob_start();
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Site</title>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.esm.min.js" integrity="sha384-pXJyILVSfKOB4xKYbM0dJr+oH4iVvo4s7mWbiTHe6LSxd38hl16DMj6AOJyy2Wcz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
 </head>
 
     <body>
@@ -30,6 +38,18 @@ ob_start();
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
+                            <?php if(isset($_SESSION["protectedRoutes"])){
+                                if (isset($_SESSION["protectedRoutes"])){
+                                    $authUsers = (new AuthorizedUsers())->getAuthUsers();
+                                    foreach ($authUsers as $user => $item){
+                                        if (in_array($_SESSION["protectedRoutes"], $item)){
+                                            print '<a class="nav-link" href="/articles">Articles</a>';
+                                        }
+                                    }
+                                }
+                            } ?>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/contact">Contact</a>
                         </li>
                         <li class="nav-item">
@@ -37,8 +57,17 @@ ob_start();
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <?php isset($_SESSION["userName"]) ? print "" : print '<a style="margin: 1%;" class="btn btn-primary" href="/login"> Login </a>' ?>
-                        <a style="margin: 1%;" class="btn btn-primary" href="<?php isset($_SESSION["userName"]) ? print "/logout" : print "/reg" ?>"> <?php isset($_SESSION["userName"]) ? print "Logout" : print "Register" ?></a>
+                        <?php
+                        isset($_SESSION["protectedRoutes"]) && print '<a style="margin: 1%;" class="nav-link" href="/profile">Profile</a>';
+                        ?>
+                        <?php
+                        isset($_SESSION["userName"]) ? print "" : print '<a style="margin: 1%;" class="btn btn-primary" href="/login"> Login </a>'
+                        ?>
+                        <a style="margin: 1%;" class="btn btn-primary" href="<?php
+                        isset($_SESSION["userName"]) ? print "/logout" : print "/reg"
+                        ?>"> <?php
+                            isset($_SESSION["userName"]) ? print "Logout" : print "Register"
+                            ?></a>
                     </div>
                 </div>
             </div>
